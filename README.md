@@ -1,11 +1,3 @@
-# Physical AI & Humanoid Robotics Textbook 🤖
-
-[![Deploy to GitHub Pages](https://github.com/hanzalajahangir7/Hackathon-Project/actions/workflows/deploy.yml/badge.svg)](https://github.com/hanzalajahangir7/Hackathon-Project/actions/workflows/deploy.yml)
-
-A complete, production-ready **interactive textbook** for teaching Physical AI & Humanoid Robotics with integrated **RAG chatbot** powered by Google Gemini and Qdrant.
-
-## 🎯 Project Overview
-
 This project is a comprehensive educational platform featuring:
 
 - 📚 **Full Docusaurus Textbook** - Complete course content on Physical AI, ROS 2, Gazebo, NVIDIA Isaac, and Humanoid Robotics
@@ -34,7 +26,7 @@ This project is a comprehensive educational platform featuring:
 ## 🏗️ Architecture
 
 ```
-Hackathon-Project/
+hackathon-physical-ai-textbook/
 ├── backend/                    # FastAPI backend
 │   ├── main.py                # API entry point
 │   ├── routers/               # API endpoints
@@ -82,8 +74,8 @@ Hackathon-Project/
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/hanzalajahangir7/Hackathon-Project.git
-cd Hackathon-Project
+git clone https://github.com/hanzalajahangir7/hackathon-physical-ai-textbook.git
+cd hackathon-physical-ai-textbook
 ```
 
 ### 2. Backend Setup
@@ -247,9 +239,9 @@ GET /health
 1. Update `docusaurus.config.ts`:
    ```typescript
    url: 'https://hanzalajahangir7.github.io',
-   baseUrl: '/Hackathon-Project/',
+   baseUrl: '/hackathon-physical-ai-textbook/',
    organizationName: 'hanzalajahangir7',
-   projectName: 'Hackathon-Project',
+   projectName: 'hackathon-physical-ai-textbook',
    ```
 
 2. Push to GitHub:
