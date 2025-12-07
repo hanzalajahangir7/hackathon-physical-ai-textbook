@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const IS_GITHUB_PAGES = window.location.hostname.includes('github.io');
 const BACKEND_URL = IS_GITHUB_PAGES
-    ? 'https://hackathon-physical-ai-textbook-6dvry7jh-hanzalajahangir7s-projects.vercel.app'
+    ? 'https://hackathon-ai-backend-production.up.railway.app'
     : 'http://localhost:8000';
 
 interface Message {
