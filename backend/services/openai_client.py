@@ -4,6 +4,11 @@ from typing import List
 
 load_dotenv()
 
+# Clear any proxy settings that might interfere
+for proxy_var in ['HTTP_PROXY', 'HTTPS_PROXY', 'http_proxy', 'https_proxy']:
+    if proxy_var in os.environ:
+        del os.environ[proxy_var]
+
 # Set the API key as environment variable for OpenAI
 API_KEY = os.getenv("OPENAI_API_KEY")
 if API_KEY and "your_" not in API_KEY:
@@ -57,6 +62,7 @@ Physical AI is the intersection of robotics and AI. It involves embodied agents 
 *(This is a mock response because the API key is missing or invalid.)*"""
 
     try:
+        print(f"Generating answer for: {prompt[:50]}...")
         response = client.chat.completions.create(
             model="gpt-4o-mini",
             messages=[
@@ -71,9 +77,12 @@ Provide a clear, detailed answer."""}
             temperature=0.7,
             max_tokens=500
         )
+        print("Answer generated successfully")
         return response.choices[0].message.content
     except Exception as e:
-        return f"Error using AI model: {str(e)}"
+        error_msg = f"Error using AI model: {str(e)}"
+        print(f"ERROR in generate_answer: {error_msg}")
+        raise Exception(error_msg)
 
 async def translate_to_urdu(text: str) -> str:
     """Translate to Urdu using OpenAI or Mock"""
@@ -85,18 +94,22 @@ async def translate_to_urdu(text: str) -> str:
 Original text: {text[:50]}..."""
 
     try:
+        print(f"Translating to Urdu: {text[:50]}...")
         response = client.chat.completions.create(
             model="gpt-4o-mini",
             messages=[
                 {"role": "system", "content": "You are a professional translator specializing in technical content."},
-                {"role": "user", "content": f"Translate this technical text to Urdu:\n\n{text[:1000]}"}
+                {"role": "user", "content": f"Translate this technical text to Urdu:\\n\\n{text[:1000]}"}
             ],
             temperature=0.3,
             max_tokens=1000
         )
+        print("Translation completed successfully")
         return response.choices[0].message.content
     except Exception as e:
-        return f"Translation error: {str(e)}"
+        error_msg = f"Translation error: {str(e)}"
+        print(f"ERROR in translate_to_urdu: {error_msg}")
+        raise Exception(error_msg)
 
 async def personalize_content(text: str, user_background: dict) -> str:
     """Personalize content using OpenAI or Mock"""
@@ -110,6 +123,7 @@ This content has been adapted for your skill level.
 *(Rest of content simulated)*"""
 
     try:
+        print(f"Personalizing content for: {user_background}")
         response = client.chat.completions.create(
             model="gpt-4o-mini",
             messages=[
@@ -124,6 +138,9 @@ Content:
             temperature=0.5,
             max_tokens=1000
         )
+        print("Personalization completed successfully")
         return response.choices[0].message.content
     except Exception as e:
-        return f"Personalization error: {str(e)}"
+        error_msg = f"Personalization error: {str(e)}"
+        print(f"ERROR in personalize_content: {error_msg}")
+        raise Exception(error_msg)
