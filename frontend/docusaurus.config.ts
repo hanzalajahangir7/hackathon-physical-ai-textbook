@@ -14,7 +14,6 @@ const config: Config = {
     projectName: 'hackathon-physical-ai-textbook',
 
     onBrokenLinks: 'warn',
-    onBrokenMarkdownLinks: 'warn',
 
     i18n: {
         defaultLocale: 'en',
