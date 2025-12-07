@@ -1,0 +1,129 @@
+import os
+from dotenv import load_dotenv
+from typing import List
+
+load_dotenv()
+
+# Set the API key as environment variable for OpenAI
+API_KEY = os.getenv("OPENAI_API_KEY")
+if API_KEY and "your_" not in API_KEY:
+    os.environ["OPENAI_API_KEY"] = API_KEY
+
+# Import OpenAI after setting environment variable
+from openai import OpenAI
+
+MOCK_MODE = False
+client = None
+
+if not API_KEY or "your_" in API_KEY:
+    print("WARNING: OPENAI_API_KEY not found or invalid. Using MOCK MODE.")
+    MOCK_MODE = True
+else:
+    try:
+        # Initialize client - it will use the environment variable
+        client = OpenAI()
+        print("OpenAI client initialized successfully.")
+    except Exception as e:
+        print(f"Error configuring OpenAI: {e}. Switching to MOCK MODE.")
+        MOCK_MODE = True
+
+def get_embeddings(text: str) -> List[float]:
+    """Generate embeddings using OpenAI or Mock"""
+    if MOCK_MODE or client is None:
+        return [0.1] * 1536  # OpenAI embeddings are 1536 dimensions
+    
+    try:
+        response = client.embeddings.create(
+            model="text-embedding-3-small",
+            input=text
+        )
+        return response.data[0].embedding
+    except Exception as e:
+        print(f"Embedding error: {e}")
+        return [0.1] * 1536
+
+def get_query_embedding(text: str) -> List[float]:
+    """Generate query embeddings using OpenAI or Mock"""
+    return get_embeddings(text)  # Same function for OpenAI
+
+async def generate_answer(prompt: str, context: str) -> str:
+    """Generate answer using OpenAI or Mock"""
+    if MOCK_MODE or client is None:
+        return f"""**[MOCK AI RESPONSE]**
+Based on your question '{prompt}', here is a simulated answer:
+
+Physical AI is the intersection of robotics and AI. It involves embodied agents interacting with the physical world.
+
+*(This is a mock response because the API key is missing or invalid.)*"""
+
+    try:
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": "You are an expert teacher of Physical AI and Humanoid Robotics."},
+                {"role": "user", "content": f"""Context:
+{context}
+
+Question: {prompt}
+
+Provide a clear, detailed answer."""}
+            ],
+            temperature=0.7,
+            max_tokens=500
+        )
+        return response.choices[0].message.content
+    except Exception as e:
+        return f"Error using AI model: {str(e)}"
+
+async def translate_to_urdu(text: str) -> str:
+    """Translate to Urdu using OpenAI or Mock"""
+    if MOCK_MODE or client is None:
+        return f"""**[MOCK URDU TRANSLATION]**
+
+یہ ایک مصنوعی نمونہ ہے۔ (This is a mock sample.)
+
+Original text: {text[:50]}..."""
+
+    try:
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": "You are a professional translator specializing in technical content."},
+                {"role": "user", "content": f"Translate this technical text to Urdu:\n\n{text[:1000]}"}
+            ],
+            temperature=0.3,
+            max_tokens=1000
+        )
+        return response.choices[0].message.content
+    except Exception as e:
+        return f"Translation error: {str(e)}"
+
+async def personalize_content(text: str, user_background: dict) -> str:
+    """Personalize content using OpenAI or Mock"""
+    if MOCK_MODE or client is None:
+        level = user_background.get('software_exp', 'general')
+        return f"""**[MOCK PERSONALIZED CONTENT - {level.upper()}]**
+
+This content has been adapted for your skill level.
+
+{text[:200]}...
+*(Rest of content simulated)*"""
+
+    try:
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": "You are an expert educator who adapts technical content to different skill levels."},
+                {"role": "user", "content": f"""Adapt this text for a user with:
+Software Experience: {user_background.get('software_exp')}
+Hardware Experience: {user_background.get('hardware_exp')}
+
+Content:
+{text[:1000]}"""}
+            ],
+            temperature=0.5,
+            max_tokens=1000
+        )
+        return response.choices[0].message.content
+    except Exception as e:
+        return f"Personalization error: {str(e)}"
