@@ -330,4 +330,4 @@ If stuck:
 
 ---
 
-**You're ready to go! Start building and testing your Physical AI textbook! 🚀**
+
