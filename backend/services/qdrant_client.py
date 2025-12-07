@@ -10,7 +10,7 @@ client = QdrantClient(
 
 COLLECTION_NAME = "physical_ai_textbook"
 
-def init_collection(vector_size: int = 768):
+def init_collection(vector_size: int = 1536):
     """Initialize Qdrant collection"""
     collections = client.get_collections().collections
     if not any(col.name == COLLECTION_NAME for col in collections):
