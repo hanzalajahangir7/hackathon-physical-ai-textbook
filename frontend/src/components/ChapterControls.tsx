@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-// Hardcode for hackathon demo stability
-const BACKEND_URL = 'http://localhost:8000';
+const IS_GITHUB_PAGES = window.location.hostname.includes('github.io');
+const BACKEND_URL = IS_GITHUB_PAGES ? null : 'http://localhost:8000';
 
 export default function ChapterControls() {
     const [loading, setLoading] = useState(false);

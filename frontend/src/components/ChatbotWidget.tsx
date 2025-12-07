@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-// Hardcode for hackathon demo stability
-const BACKEND_URL = 'http://localhost:8000';
+const IS_GITHUB_PAGES = window.location.hostname.includes('github.io');
+const BACKEND_URL = IS_GITHUB_PAGES ? null : 'http://localhost:8000';
 
 interface Message {
     role: string;
@@ -20,6 +20,16 @@ export default function ChatbotWidget() {
 
         setLoading(true);
         setMessages(prev => [...prev, { role: 'user', content: query }]);
+
+        if (IS_GITHUB_PAGES || !BACKEND_URL) {
+            setMessages(prev => [...prev, {
+                role: 'assistant',
+                content: '👋 Hi! The AI chatbot requires a backend server to function. This is a static demo on GitHub Pages.\n\n📚 To use the full AI features:\n1. Clone the repository\n2. Run the backend locally (see README)\n3. The chatbot will answer questions about Physical AI & Humanoid Robotics!\n\n🔗 Repository: https://github.com/hanzalajahangir7/hackathon-physical-ai-textbook'
+            }]);
+            setLoading(false);
+            setQuery('');
+            return;
+        }
 
         try {
             const response = await axios.post(`${BACKEND_URL}/api/rag/query`, {
