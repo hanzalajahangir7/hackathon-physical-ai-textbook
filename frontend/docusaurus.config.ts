@@ -20,6 +20,10 @@ const config: Config = {
         locales: ['en'],
     },
 
+    markdown: {
+        mermaid: true,
+    },
+
     presets: [
         [
             'classic',
@@ -27,7 +31,7 @@ const config: Config = {
                 docs: {
                     routeBasePath: '/',
                     sidebarPath: './sidebars.ts',
-                    editUrl: 'https://github.com/hanzalajahangir7/Hackathon-Project/tree/main/frontend/',
+                    editUrl: 'https://github.com/hanzalajahangir7/hackathon-physical-ai-textbook/tree/master/frontend/',
                 },
                 blog: false,
                 theme: {
@@ -53,7 +57,7 @@ const config: Config = {
                     label: 'Textbook',
                 },
                 {
-                    href: 'https://github.com/hanzalajahangir7/Hackathon-Project',
+                    href: 'https://github.com/hanzalajahangir7/hackathon-physical-ai-textbook',
                     label: 'GitHub',
                     position: 'right',
                 },
