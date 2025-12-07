@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 const IS_GITHUB_PAGES = window.location.hostname.includes('github.io');
-const BACKEND_URL = IS_GITHUB_PAGES ? null : 'http://localhost:8000';
+const BACKEND_URL = IS_GITHUB_PAGES
+    ? 'https://hackathon-physical-ai-textbook-6dvry7jh-hanzalajahangir7s-projects.vercel.app'
+    : 'http://localhost:8000';
 
 export default function ChapterControls() {
     const [loading, setLoading] = useState(false);
