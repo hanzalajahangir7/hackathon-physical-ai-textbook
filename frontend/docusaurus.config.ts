@@ -8,10 +8,10 @@ const config: Config = {
     favicon: 'img/favicon.ico',
 
     url: 'https://hanzalajahangir7.github.io',
-    baseUrl: '/Hackathon-Project/',
+    baseUrl: '/hackathon-physical-ai-textbook/',
 
     organizationName: 'hanzalajahangir7',
-    projectName: 'Hackathon-Project',
+    projectName: 'hackathon-physical-ai-textbook',
 
     onBrokenLinks: 'warn',
     onBrokenMarkdownLinks: 'warn',
