@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const IS_GITHUB_PAGES = window.location.hostname.includes('github.io');
-const BACKEND_URL = IS_GITHUB_PAGES
-    ? 'https://hackathon-ai-backend-production.up.railway.app'
-    : 'http://localhost:8000';
+// Use Railway backend unless explicitly running on localhost:3000 (dev server)
+const IS_LOCAL_DEV = window.location.hostname === 'localhost' && window.location.port === '3000';
+const BACKEND_URL = IS_LOCAL_DEV
+    ? 'http://localhost:8000'
+    : 'https://hackathon-ai-backend-production.up.railway.app';
 
 export default function AskAIButton() {
     const [selectedText, setSelectedText] = useState('');
