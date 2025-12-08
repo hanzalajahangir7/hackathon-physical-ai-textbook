@@ -56,10 +56,9 @@ const config: Config = {
                     position: 'left',
                 },
                 {
-                    type: 'docSidebar',
-                    sidebarId: 'tutorialSidebar',
-                    position: 'left',
+                    to: '/docs/textbook',
                     label: 'Textbook',
+                    position: 'left',
                 },
                 {
                     href: 'https://github.com/hanzalajahangir7/hackathon-physical-ai-textbook',

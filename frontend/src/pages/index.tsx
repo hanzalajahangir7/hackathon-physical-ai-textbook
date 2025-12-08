@@ -44,7 +44,7 @@ export default function Home(): JSX.Element {
                         </p>
                         <div style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap' }}>
                             <Link
-                                to="/docs/"
+                                to="/docs/textbook"
                                 style={{
                                     backgroundColor: 'white',
                                     color: '#667eea',
@@ -62,7 +62,7 @@ export default function Home(): JSX.Element {
                                 📚 Read the Textbook
                             </Link>
                             <Link
-                                to="/docs/"
+                                to="/docs/textbook"
                                 style={{
                                     backgroundColor: 'transparent',
                                     color: 'white',
@@ -227,7 +227,7 @@ export default function Home(): JSX.Element {
                             Start your journey into the future of robotics and embodied intelligence
                         </p>
                         <Link
-                            to="/docs/"
+                            to="/docs/textbook"
                             style={{
                                 backgroundColor: 'white',
                                 color: '#667eea',

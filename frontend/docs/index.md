@@ -2,7 +2,7 @@
 id: home
 title: Physical AI & Humanoid Robotics Textbook
 sidebar_label: Home
-slug: /
+slug: /textbook
 sidebar_position: 0
 ---
 
