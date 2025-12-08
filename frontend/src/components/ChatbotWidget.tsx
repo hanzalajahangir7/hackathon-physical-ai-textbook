@@ -121,9 +121,19 @@ export default function ChatbotWidget() {
 
             <div style={{ flex: 1, overflowY: 'auto', padding: '15px', backgroundColor: '#f8f9fa' }}>
                 {messages.length === 0 && (
-                    <div style={{ textAlign: 'center', color: '#666', marginTop: '20px' }}>
-                        <p>👋 Hi! I'm your AI assistant for Physical AI & Humanoid Robotics.</p>
-                        <p>Ask me anything about the textbook!</p>
+                    <div style={{ textAlign: 'center', color: '#666', marginTop: '20px', fontSize: '14px' }}>
+                        <p style={{ fontSize: '16px', marginBottom: '10px' }}>👋 Hi! I'm your AI assistant for the <strong>Physical AI & Humanoid Robotics</strong> textbook.</p>
+                        <p style={{ marginBottom: '10px' }}>I can help you with:</p>
+                        <ul style={{ textAlign: 'left', display: 'inline-block', marginBottom: '10px' }}>
+                            <li>Physical AI concepts</li>
+                            <li>Humanoid robotics</li>
+                            <li>Robot perception & learning</li>
+                            <li>Sim-to-real transfer</li>
+                            <li>Any textbook topics</li>
+                        </ul>
+                        <p style={{ fontSize: '12px', fontStyle: 'italic', color: '#999' }}>
+                            Note: I'm specifically designed for this textbook and can only answer questions related to its content.
+                        </p>
                     </div>
                 )}
                 {messages.map((msg, i) => (

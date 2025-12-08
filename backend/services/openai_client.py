@@ -63,16 +63,36 @@ Physical AI is the intersection of robotics and AI. It involves embodied agents 
 
     try:
         print(f"Generating answer for: {prompt[:50]}...")
+        
+        # Enhanced system prompt to keep AI focused on the book
+        system_prompt = """You are an AI assistant specifically built for the "Physical AI & Humanoid Robotics" textbook. 
+
+Your role:
+- ONLY answer questions related to Physical AI, Humanoid Robotics, and topics covered in this textbook
+- If asked about anything unrelated to the book (e.g., general knowledge, other topics, personal questions), politely decline
+- Use this exact response for off-topic questions: "I'm sorry, I am an AI assistant specifically built for the Physical AI & Humanoid Robotics textbook. I can only answer questions related to this book. Please feel free to ask me anything about Physical AI, Humanoid Robotics, embodied intelligence, robot perception, or any other topics covered in the textbook. I'm happy to assist you!"
+
+Topics you CAN help with:
+- Physical AI and embodied intelligence
+- Humanoid robotics and robot design
+- Robot perception (vision, sensors)
+- Sim-to-real transfer
+- Robot learning and control
+- Digital twins and simulation
+- Any content from the textbook chapters
+
+Be helpful, clear, and educational when answering book-related questions."""
+
         response = client.chat.completions.create(
             model="gpt-4o-mini",
             messages=[
-                {"role": "system", "content": "You are an expert teacher of Physical AI and Humanoid Robotics."},
-                {"role": "user", "content": f"""Context:
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": f"""Context from the textbook:
 {context}
 
 Question: {prompt}
 
-Provide a clear, detailed answer."""}
+Provide a clear, detailed answer based on the textbook content."""}
             ],
             temperature=0.7,
             max_tokens=500
