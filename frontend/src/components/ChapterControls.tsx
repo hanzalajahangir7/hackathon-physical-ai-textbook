@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-// Use Railway backend unless explicitly running on localhost:3000 (dev server)
-const IS_LOCAL_DEV = window.location.hostname === 'localhost' && window.location.port === '3000';
-const BACKEND_URL = IS_LOCAL_DEV
-    ? 'http://localhost:8000'
-    : 'https://hackathon-ai-backend-production.up.railway.app';
+// Always use Railway backend in production
+const BACKEND_URL = 'https://hackathon-ai-backend-production.up.railway.app';
 
 export default function ChapterControls() {
     const [loading, setLoading] = useState(false);
@@ -19,7 +16,6 @@ export default function ChapterControls() {
     const replacePageContent = (newContent: string) => {
         const article = document.querySelector('article');
         if (article) {
-            // Preserve the structure but replace text content
             const contentDiv = article.querySelector('.markdown') || article;
             if (contentDiv) {
                 contentDiv.innerHTML = `<div style="white-space: pre-wrap;">${newContent}</div>`;
@@ -44,7 +40,7 @@ export default function ChapterControls() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                timeout: 60000 // 60 second timeout for longer content
+                timeout: 60000
             });
 
             console.log('Personalization response received');
@@ -78,7 +74,7 @@ export default function ChapterControls() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                timeout: 60000 // 60 second timeout for translation
+                timeout: 60000
             });
 
             console.log('Translation response received');
