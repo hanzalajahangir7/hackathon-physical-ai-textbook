@@ -13,12 +13,58 @@ export default function ChapterControls() {
         return article?.innerText || '';
     };
 
+    const convertMarkdownToHTML = (markdown: string): string => {
+        // Simple Markdown to HTML conversion
+        let html = markdown;
+
+        // Code blocks first (before other replacements)
+        const codeBlocks: string[] = [];
+        html = html.replace(/```[\s\S]*?```/g, (match) => {
+            codeBlocks.push(match.replace(/```/g, ''));
+            return `__CODE_BLOCK_${codeBlocks.length - 1}__`;
+        });
+
+        // Headers
+        html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
+        html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
+        html = html.replace(/^# (.*$)/gim, '<h1>$1</h1>');
+
+        // Bold
+        html = html.replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>');
+
+        // Italic
+        html = html.replace(/\*(.*?)\*/gim, '<em>$1</em>');
+
+        // Inline code
+        html = html.replace(/`(.*?)`/gim, '<code>$1</code>');
+
+        // Links
+        html = html.replace(/\[(.*?)\]\((.*?)\)/gim, '<a href="$2">$1</a>');
+
+        // Lists
+        html = html.replace(/^\* (.*$)/gim, '<li>$1</li>');
+        html = html.replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>');
+
+        // Line breaks
+        html = html.replace(/\n\n/g, '</p><p>');
+        html = html.replace(/\n/g, '<br>');
+
+        // Restore code blocks
+        codeBlocks.forEach((code, i) => {
+            html = html.replace(`__CODE_BLOCK_${i}__`, `<pre><code>${code}</code></pre>`);
+        });
+
+        return `<div class="markdown-content">${html}</div>`;
+    };
+
     const replacePageContent = (newContent: string) => {
         const article = document.querySelector('article');
         if (article) {
             const contentDiv = article.querySelector('.markdown') || article;
             if (contentDiv) {
-                contentDiv.innerHTML = `<div style="white-space: pre-wrap;">${newContent}</div>`;
+                // Convert Markdown to HTML
+                const htmlContent = convertMarkdownToHTML(newContent);
+                contentDiv.innerHTML = htmlContent;
             }
         }
     };
