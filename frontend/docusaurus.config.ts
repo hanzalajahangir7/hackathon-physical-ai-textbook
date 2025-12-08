@@ -29,7 +29,7 @@ const config: Config = {
             'classic',
             {
                 docs: {
-                    routeBasePath: '/',
+                    routeBasePath: 'docs',
                     sidebarPath: './sidebars.ts',
                     editUrl: 'https://github.com/hanzalajahangir7/hackathon-physical-ai-textbook/tree/master/frontend/',
                 },
@@ -56,7 +56,7 @@ const config: Config = {
                     position: 'left',
                 },
                 {
-                    to: '/docs/textbook',
+                    to: '/docs/',
                     label: 'Textbook',
                     position: 'left',
                 },
