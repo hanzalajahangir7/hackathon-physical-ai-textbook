@@ -24,14 +24,34 @@ export default function ChatbotWidget() {
         setMessages(prev => [...prev, { role: 'user', content: query }]);
 
         try {
+            console.log('Sending request to:', `${BACKEND_URL}/api/rag/query`);
+            console.log('Request data:', { query: query, top_k: 5 });
+
             const response = await axios.post(`${BACKEND_URL}/api/rag/query`, {
                 query: query,
                 top_k: 5
+            }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                timeout: 30000 // 30 second timeout
             });
 
+            console.log('Response received:', response.data);
             setMessages(prev => [...prev, { role: 'assistant', content: response.data.answer }]);
-        } catch (error) {
-            setMessages(prev => [...prev, { role: 'assistant', content: 'Error occurred. Please try again.' }]);
+        } catch (error: any) {
+            console.error('Error details:', error);
+            console.error('Error response:', error.response?.data);
+            console.error('Error status:', error.response?.status);
+
+            let errorMessage = 'Error occurred. Please try again.';
+            if (error.response?.data?.detail) {
+                errorMessage = `Error: ${error.response.data.detail}`;
+            } else if (error.message) {
+                errorMessage = `Error: ${error.message}`;
+            }
+
+            setMessages(prev => [...prev, { role: 'assistant', content: errorMessage }]);
         }
 
         setLoading(false);
